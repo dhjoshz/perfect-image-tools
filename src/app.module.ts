@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import AppServiceConfig from './config/app.config';
+import { ResourcesModule } from './resources/resources.module';
+import AppServiceConfig from '../config/app.config';
 
 @Module({
   imports: [
@@ -8,6 +9,7 @@ import AppServiceConfig from './config/app.config';
       load: [AppServiceConfig],
       envFilePath: ['./config/image-tools.env'],
     }),
+    ResourcesModule,
   ],
   controllers: [],
   providers: [],
