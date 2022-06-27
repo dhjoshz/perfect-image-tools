@@ -12,6 +12,14 @@
 ## Description
 
 Image Tools API
+
+## Documentation
+
+Swagger documentation in DEV environment
+```
+http://10.9.1.140:3064/api/
+```
+
 ## Installation
 
 ```bash
