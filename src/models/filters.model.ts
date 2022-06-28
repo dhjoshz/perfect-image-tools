@@ -88,7 +88,7 @@ export class Filters {
     required: false,
     default: '#00FFFFFF',
   })
-  @ValidateIf((o) => o.tint.length > 0)
+  @ValidateIf((o) => o.tint && o.tint.length > 0)
   @IsOptional()
   @IsString({
     message: 'Invalid tint color, a string value is expected',
@@ -108,7 +108,7 @@ export class Filters {
     required: false,
     default: '#00FFFFFF',
   })
-  @ValidateIf((o) => o.transparencyColor.length > 0)
+  @ValidateIf((o) => o.transparencyColor && o.transparencyColor.length > 0)
   @IsOptional()
   @IsString({
     message: 'Invalid transparency color, a string value is expected',
