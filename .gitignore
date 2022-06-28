@@ -394,8 +394,8 @@ Temporary Items
 
 =======
 # Local
-.env
-**/**/*.env
+# .env
+# **/**/*.env
 dist
 
 package-lock.json
