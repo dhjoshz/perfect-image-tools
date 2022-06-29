@@ -64,6 +64,20 @@ export class ImagesController {
   })
   @ApiOkResponse({
     description: 'Image processed successfully',
+    schema: {
+      type: 'object',
+      properties: {
+        type: {
+          type: 'string',
+        },
+        data: {
+          type: 'array',
+          items: {
+            type: 'number'
+          }
+        },
+      },
+    },
   })
   @ApiBadRequestResponse({
     description: 'Invalid image properties',
