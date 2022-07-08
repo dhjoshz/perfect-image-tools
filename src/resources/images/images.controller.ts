@@ -25,9 +25,9 @@ import {
 import { catchError, throwError } from 'rxjs';
 import { Express } from 'express';
 import { ImagePropertiesTransformerPipe } from 'src/pipes/image-properties-transformer/image-properties-transformer.pipe';
-import { FiltersValidatorPipe } from 'src/pipes/filters-validator/filters-validator.pipe';
 import { ImageValidatorPipe } from 'src/pipes/image-validator/image-validator.pipe';
 import { ImageFiltersBadRequestException } from 'src/exception/image-filters/image-filters.bad.requestexception';
+import { ImagePropertiesValidatorPipe } from 'src/pipes/image-properties-validator/image-properties-validator.pipe';
 
 @ApiTags('images')
 @Controller('images')
@@ -73,8 +73,8 @@ export class ImagesController {
         data: {
           type: 'array',
           items: {
-            type: 'number'
-          }
+            type: 'number',
+          },
         },
       },
     },
@@ -90,7 +90,7 @@ export class ImagesController {
   @UsePipes(
     new ImageValidatorPipe(),
     new ImagePropertiesTransformerPipe(),
-    new FiltersValidatorPipe(),
+    new ImagePropertiesValidatorPipe(),
   )
   @HttpCode(200)
   processImage(
