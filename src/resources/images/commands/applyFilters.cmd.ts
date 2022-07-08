@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { BusinessLogicCommand } from 'libs/commons/src';
 import { AppLogger } from 'libs/commons/src/logger';
-import { catchError, Observable, switchMap, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { ImageFiltersBadRequestException } from 'src/exception/image-filters/image-filters.bad.requestexception';
 import { Filters } from 'src/models/filters.model';
 import { FiltersBuilder } from '../builders/filters.builder';

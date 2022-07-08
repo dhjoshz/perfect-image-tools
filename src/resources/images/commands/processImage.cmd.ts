@@ -3,6 +3,7 @@ import { BusinessLogicCommand } from 'libs/commons/src';
 import { AppLogger } from 'libs/commons/src/logger';
 import { from, Observable, of } from 'rxjs';
 import { Image } from '../../../models/image.model';
+import { ApplyCropCommand } from './applyCrop.cmd';
 import { ApplyFiltersCommand } from './applyFilters.cmd';
 
 @Injectable()
@@ -14,6 +15,9 @@ export class ProcessImageCommand
   @Inject()
   private readonly applyFiltersCommand: ApplyFiltersCommand;
 
+  @Inject()
+  private readonly applyCropCommand: ApplyCropCommand;
+
   execute(
     image: Express.Multer.File,
     imageProperties: Image,
@@ -24,6 +28,12 @@ export class ProcessImageCommand
       imageBuffer$ = this.applyFiltersCommand.execute(
         imageBuffer$,
         imageProperties.filters,
+      );
+    }
+    if (imageProperties.cropData) {
+      imageBuffer$ = this.applyCropCommand.execute(
+        imageBuffer$,
+        imageProperties.cropData,
       );
     }
     this.logger.debug(`${image.originalname} processing complete`, true);

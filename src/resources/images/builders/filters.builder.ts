@@ -9,13 +9,19 @@ import { Threshold } from 'src/models/threshold.model';
 
 @Injectable()
 export class FiltersBuilder {
+  private imageProcessor = sharp;
+
+  constructor() {
+    this.imageProcessor.cache(false);
+  }
+
   setBlur(
     imageBuffer$: Observable<Buffer>,
     blurValue: number,
   ): Observable<Buffer> {
     return imageBuffer$.pipe(
       switchMap((imgBuffer) =>
-        from(sharp(imgBuffer).blur(blurValue).toBuffer()),
+        from(this.imageProcessor(imgBuffer).blur(blurValue).toBuffer()),
       ),
     );
   }
@@ -26,7 +32,7 @@ export class FiltersBuilder {
   ): Observable<Buffer> {
     return imageBuffer$.pipe(
       switchMap((imageBuffer) =>
-        from(sharp(imageBuffer).median(medianValue).toBuffer()),
+        from(this.imageProcessor(imageBuffer).median(medianValue).toBuffer()),
       ),
     );
   }
@@ -37,7 +43,7 @@ export class FiltersBuilder {
   ): Observable<Buffer> {
     return imageBuffer$.pipe(
       switchMap((imageBuffer) =>
-        from(sharp(imageBuffer).gamma(gammaValue).toBuffer()),
+        from(this.imageProcessor(imageBuffer).gamma(gammaValue).toBuffer()),
       ),
     );
   }
@@ -45,7 +51,7 @@ export class FiltersBuilder {
   setNormalise(imageBuffer$: Observable<Buffer>): Observable<Buffer> {
     return imageBuffer$.pipe(
       switchMap((imageBuffer) =>
-        from(sharp(imageBuffer).normalise().toBuffer()),
+        from(this.imageProcessor(imageBuffer).normalise().toBuffer()),
       ),
     );
   }
@@ -54,7 +60,7 @@ export class FiltersBuilder {
     return imageBuffer$.pipe(
       switchMap((imageBuffer) =>
         from(
-          sharp(imageBuffer)
+          this.imageProcessor(imageBuffer)
             .tint(CommonsUtil.convertHexToRGBA(tint))
             .toBuffer(),
         ),
@@ -65,14 +71,16 @@ export class FiltersBuilder {
   setGrayScale(imageBuffer$: Observable<Buffer>): Observable<Buffer> {
     return imageBuffer$.pipe(
       switchMap((imageBuffer) =>
-        from(sharp(imageBuffer).grayscale().toBuffer()),
+        from(this.imageProcessor(imageBuffer).grayscale().toBuffer()),
       ),
     );
   }
 
   setNegate(imageBuffer$: Observable<Buffer>): Observable<Buffer> {
     return imageBuffer$.pipe(
-      switchMap((imageBuffer) => from(sharp(imageBuffer).negate().toBuffer())),
+      switchMap((imageBuffer) =>
+        from(this.imageProcessor(imageBuffer).negate().toBuffer()),
+      ),
     );
   }
 
@@ -83,7 +91,7 @@ export class FiltersBuilder {
     return imageBuffer$.pipe(
       switchMap((imageBuffer) =>
         from(
-          sharp(imageBuffer)
+          this.imageProcessor(imageBuffer)
             .flatten({
               background: CommonsUtil.convertHexToRGBA(transparencyColor),
             })
@@ -96,7 +104,7 @@ export class FiltersBuilder {
   setClahe(imageBuffer$: Observable<Buffer>, clahe: Clahe): Observable<Buffer> {
     return imageBuffer$.pipe(
       switchMap((imageBuffer) =>
-        from(sharp(imageBuffer).clahe(clahe).toBuffer()),
+        from(this.imageProcessor(imageBuffer).clahe(clahe).toBuffer()),
       ),
     );
   }
@@ -108,7 +116,7 @@ export class FiltersBuilder {
     return imageBuffer$.pipe(
       switchMap((imageBuffer) =>
         from(
-          sharp(imageBuffer)
+          this.imageProcessor(imageBuffer)
             .threshold(threshold.threshold, { grayscale: threshold.grayscale })
             .toBuffer(),
         ),
@@ -122,7 +130,7 @@ export class FiltersBuilder {
   ): Observable<Buffer> {
     return imageBuffer$.pipe(
       switchMap((imageBuffer) =>
-        from(sharp(imageBuffer).modulate(modulate).toBuffer()),
+        from(this.imageProcessor(imageBuffer).modulate(modulate).toBuffer()),
       ),
     );
   }
@@ -134,7 +142,7 @@ export class FiltersBuilder {
     return imageBuffer$.pipe(
       switchMap((imageBuffer) =>
         from(
-          sharp(imageBuffer)
+          this.imageProcessor(imageBuffer)
             .sharpen(sharpen.sigma, sharpen.flat, sharpen.jagged)
             .toBuffer(),
         ),
