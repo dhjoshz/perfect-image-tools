@@ -28,13 +28,12 @@ export class ApplyCropCommand
   ): Observable<Buffer> {
     return imageBuffer$.pipe(
       switchMap((imgBuffer) => {
-        this.logger.log(this.imageProcessor(imgBuffer).metadata());
         return from(
           this.imageProcessor(imgBuffer).extract(cropData).toBuffer(),
         );
       }),
       catchError((error) => {
-        this.logger.error(`Error applying filters: ${error}`);
+        this.logger.error(`Error applying crop: ${error}`);
         return this.errorHandler(new ImageFiltersBadRequestException(error));
       }),
     );
