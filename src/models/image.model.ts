@@ -3,6 +3,7 @@ import { Type } from 'class-transformer';
 import { IsDefined, IsOptional, ValidateNested } from 'class-validator';
 import { CropProperties } from './cropProperties.model';
 import { Filters } from './filters.model';
+import { RotationProperties } from './rotationProperties.model';
 
 export class Image {
   @ApiProperty({
@@ -25,5 +26,16 @@ export class Image {
   @ValidateNested()
   @Type(() => CropProperties)
   @IsDefined()
-  cropData?: CropProperties;
+  cropProperties?: CropProperties;
+
+  @ApiProperty({
+    type: RotationProperties,
+    required: false,
+    description: 'Rotation properties to be applied over the image',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => RotationProperties)
+  @IsDefined()
+  rotationProperties?: RotationProperties;
 }

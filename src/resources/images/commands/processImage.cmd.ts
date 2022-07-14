@@ -5,6 +5,7 @@ import { from, Observable, of } from 'rxjs';
 import { Image } from '../../../models/image.model';
 import { ApplyCropCommand } from './applyCrop.cmd';
 import { ApplyFiltersCommand } from './applyFilters.cmd';
+import { ApplyRotationCommand } from './applyRotation.cmd';
 
 @Injectable()
 export class ProcessImageCommand
@@ -18,6 +19,9 @@ export class ProcessImageCommand
   @Inject()
   private readonly applyCropCommand: ApplyCropCommand;
 
+  @Inject()
+  private readonly applyRotationCommand: ApplyRotationCommand;
+
   execute(
     image: Express.Multer.File,
     imageProperties: Image,
@@ -30,10 +34,16 @@ export class ProcessImageCommand
         imageProperties.filters,
       );
     }
-    if (imageProperties.cropData) {
+    if (imageProperties.cropProperties) {
       imageBuffer$ = this.applyCropCommand.execute(
         imageBuffer$,
-        imageProperties.cropData,
+        imageProperties.cropProperties,
+      );
+    }
+    if (imageProperties.rotationProperties) {
+      imageBuffer$ = this.applyRotationCommand.execute(
+        imageBuffer$,
+        imageProperties.rotationProperties,
       );
     }
     this.logger.debug(`${image.originalname} processing complete`, true);
