@@ -17,7 +17,8 @@ const swaggerConfig = new DocumentBuilder()
   .addTag('images', 'process the image with Sharp', {
     description: 'sharp library',
     url: 'https://sharp.pixelplumbing.com/',
-  });
+  })
+  .addTag('effects', 'CRUD operations for image effects');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
