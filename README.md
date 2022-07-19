@@ -1,23 +1,25 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /><a>
+  <a href="http://nestjs.com/" target="blank">
+    <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
+  <a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-</p>
+
+<h1 align="center"> 
+  <a href="http://nodejs.org" target="_blank"></a>
+  Perfect Image Tools API
+</h1>
 
 ## Description
 
-Image Tools API
+Perfect Image Tools API
 
 ## Documentation
 
 Swagger documentation in DEV environment
+
 ```
-http://10.9.1.140:3064/api/
+http://10.9.1.188:3064/api/
 ```
 
 ## Installation
@@ -25,9 +27,14 @@ http://10.9.1.140:3064/api/
 ```bash
 $ npm install
 ```
+
 ## Setup Env variables for local development
 
-rename ```/src/config/image-tools.env.example``` to ```/src/config/image-tools.env```
+replace `/src/config/image-tools-local.env` on `/src/config/image-tools.env`
+```bash
+# start mongoDB
+$ docker-compose up -d
+```
 
 ## Running the app
 

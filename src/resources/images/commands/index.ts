@@ -7,5 +7,5 @@ export const ImageProcessingCommands = [
   ProcessImageCommand,
   ApplyFiltersCommand,
   ApplyCropCommand,
-  ApplyRotationCommand
+  ApplyRotationCommand,
 ];

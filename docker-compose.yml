@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  mongo:
+    container_name: PERFECT-IMAGE-TOOLS_DB
+    image: mongo:4.4.4
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: adminPassword123
+      MONGO_INITDB_DATABASE: PERFECT_IMAGE_TOOLS
+    ports:
+      - 27010:27017
+    volumes:
+      -  ./database/db.js:/docker-entrypoint-initdb.d/db.js:ro
