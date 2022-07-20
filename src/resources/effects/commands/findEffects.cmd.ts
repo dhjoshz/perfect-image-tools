@@ -4,11 +4,11 @@ import {
   Logger,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { BusinessLogicCommand } from 'libs/commons/src';
+import { BusinessLogicCommand } from '@app/commons';
 import { Model } from 'mongoose';
 import { catchError, from, Observable } from 'rxjs';
-import { Effect } from 'src/models/effect.model';
-import { EffectDocument } from 'src/schemas/effect.schema';
+import { Effect } from '@models';
+import { EffectDocument } from '@schemas';
 
 @Injectable()
 export class FindEffectsCommand

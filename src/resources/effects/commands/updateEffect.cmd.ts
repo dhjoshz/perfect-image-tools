@@ -1,13 +1,15 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { MONGOOSE_CONFLICT_ERROR_CODE } from '../../../../config/constants';
-import { BusinessLogicCommand } from 'libs/commons/src';
+import { BusinessLogicCommand } from '@app/commons';
 import { Model } from 'mongoose';
 import { catchError, from, Observable, switchMap, tap } from 'rxjs';
-import { EffectConflictException } from '../../../exception/effect/effect.conflict.exception';
-import { EffectInternalServerErrorException } from '../../../exception/effect/effect.internal.server.error.exception';
-import { Effect } from '../../../../src/models/effect.model';
-import { EffectDocument } from '../../../../src/schemas/effect.schema';
+import {
+  EffectConflictException,
+  EffectInternalServerErrorException,
+} from '@exceptions';
+import { Effect } from '@models';
+import { EffectDocument } from '@schemas'
 import { FindEffectByIdCommand } from './findEffecById.cmd';
 
 @Injectable()

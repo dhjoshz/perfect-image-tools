@@ -1,5 +1,5 @@
 import { HttpStatus } from "@nestjs/common";
-import { AbstractImageException } from "libs/commons-exceptions/src";
+import { AbstractImageException } from "@app/commons-exceptions";
 
 export class EffectConflictException extends AbstractImageException {
   public static STATUS_CODE = HttpStatus.CONFLICT;

@@ -1,12 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { BusinessLogicCommand } from 'libs/commons/src';
+import { BusinessLogicCommand } from '@app/commons';
 import { Model } from 'mongoose';
 import { catchError, from, Observable, tap } from 'rxjs';
-import { EffectConflictException } from 'src/exception/effect/effect.conflict.exception';
-import { EffectInternalServerErrorException } from 'src/exception/effect/effect.internal.server.error.exception';
-import { Effect } from 'src/models/effect.model';
-import { EffectDocument } from 'src/schemas/effect.schema';
+import {
+  EffectConflictException,
+  EffectInternalServerErrorException,
+} from '@exceptions';
+import { Effect } from '@models';
+import { EffectDocument } from '@schemas';
 
 @Injectable()
 export class CreateEffectCommand
@@ -26,7 +28,9 @@ export class CreateEffectCommand
         const errorMessage = `Error creating effect "${createEffectModel.name}"`;
         if (err?.code === 11000) {
           this.logger.error(`${errorMessage}, effect already exists`);
-          throw new EffectConflictException(`${errorMessage}, effect already exists`);
+          throw new EffectConflictException(
+            `${errorMessage}, effect already exists`,
+          );
         }
         this.logger.error(`${errorMessage}, ${err.message}`);
         throw new EffectInternalServerErrorException(

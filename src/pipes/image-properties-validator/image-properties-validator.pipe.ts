@@ -5,7 +5,7 @@ import {
   PipeTransform,
 } from '@nestjs/common';
 import { validateOrReject, ValidationError } from 'class-validator';
-import { AppLogger } from 'libs/commons/src/logger';
+import { AppLogger } from '@logger';
 
 @Injectable()
 export class ImagePropertiesValidatorPipe implements PipeTransform {

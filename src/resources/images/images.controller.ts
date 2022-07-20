@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ProcessImageCommand } from './commands/processImage.cmd';
-import { Image } from '../../models/image.model';
+import { Image } from '@models';
 import {
   ApiBadRequestResponse,
   ApiBody,
@@ -24,10 +24,12 @@ import {
 } from '@nestjs/swagger';
 import { catchError, throwError } from 'rxjs';
 import { Express } from 'express';
-import { ImagePropertiesTransformerPipe } from 'src/pipes/image-properties-transformer/image-properties-transformer.pipe';
-import { ImageValidatorPipe } from 'src/pipes/image-validator/image-validator.pipe';
-import { ImageFiltersBadRequestException } from 'src/exception/image-filters/image-filters.bad.requestexception';
-import { ImagePropertiesValidatorPipe } from 'src/pipes/image-properties-validator/image-properties-validator.pipe';
+import {
+  ImagePropertiesTransformerPipe,
+  ImageValidatorPipe,
+  ImagePropertiesValidatorPipe,
+} from '@pipes';
+import { ImageFiltersBadRequestException } from '@exceptions';
 
 @ApiTags('images')
 @Controller('images')
