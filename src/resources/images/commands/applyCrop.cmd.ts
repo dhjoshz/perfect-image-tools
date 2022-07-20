@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { BusinessLogicCommand } from 'libs/commons/src';
-import { AppLogger } from 'libs/commons/src/logger';
+import { BusinessLogicCommand } from '@app/commons';
+import { AppLogger } from '@logger';
 import { catchError, from, Observable, switchMap, throwError } from 'rxjs';
 import * as sharp from 'sharp';
-import { ImageFiltersBadRequestException } from 'src/exception/image-filters/image-filters.bad.requestexception';
-import { CropProperties } from 'src/models/cropProperties.model';
+import { ImageFiltersBadRequestException } from '@exceptions';
+import { CropProperties } from '@models';
 
 @Injectable()
 export class ApplyCropCommand

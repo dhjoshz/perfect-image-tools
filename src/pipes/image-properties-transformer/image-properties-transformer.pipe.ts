@@ -1,11 +1,6 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
-import { Clahe } from 'src/models/clahe.model';
-import { Filters } from 'src/models/filters.model';
-import { Image } from 'src/models/image.model';
-import { Modulate } from 'src/models/modulate.model';
-import { Sharpen } from 'src/models/sharpen.model';
-import { Threshold } from 'src/models/threshold.model';
+import { Clahe, Filters, Image, Modulate, Sharpen, Threshold } from '@models';
 
 @Injectable()
 export class ImagePropertiesTransformerPipe implements PipeTransform {

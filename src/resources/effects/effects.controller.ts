@@ -17,16 +17,19 @@ import {
   ApiBadRequestResponse,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { catchError, map, throwError } from 'rxjs';
-import { EffectConflictException } from '../../exception/effect/effect.conflict.exception';
-import { EffectInternalServerErrorException } from '../../exception/effect/effect.internal.server.error.exception';
-import { EffectNotFoundException } from '../../exception/effect/effect.not.found.exception';
-import { Effect } from '../../models/effect.model';
+import { catchError, throwError } from 'rxjs';
+import {
+  EffectConflictException,
+  EffectInternalServerErrorException,
+  EffectNotFoundException,
+} from '@exceptions';
+import { Effect } from '@models';
 import { CreateEffectCommand } from './commands/createEffect.cmd';
 import { DeleteEffectCommand } from './commands/deleteEffect.cmd';
 import { FindEffectByIdCommand } from './commands/findEffecById.cmd';
@@ -74,6 +77,9 @@ export class EffectsController {
   @ApiConflictResponse({
     description: 'Conflict creating new image effect',
   })
+  @ApiInternalServerErrorResponse({
+    description: 'Error creating image effect'
+  })
   @Post()
   createEffect(@Body() effect: Effect) {
     return this.createEffectCommand
@@ -83,6 +89,9 @@ export class EffectsController {
 
   @ApiOkResponse({
     description: 'Image effects successfully found',
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Error getting image effects'
   })
   @Get()
   findEffects() {
@@ -97,6 +106,9 @@ export class EffectsController {
   @ApiNotFoundResponse({
     description: 'Image effect not found',
   })
+  @ApiInternalServerErrorResponse({
+    description: 'Error getting image effect'
+  })
   @Get(':id')
   findEffectById(@Param('id') effectId: string) {
     return this.findEffectByIdCommand
@@ -104,7 +116,7 @@ export class EffectsController {
       .pipe(catchError((err) => this.errorHandler(err)));
   }
 
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description: 'Image effect successfully updated',
   })
   @ApiBadRequestResponse({
@@ -115,6 +127,9 @@ export class EffectsController {
   })
   @ApiConflictResponse({
     description: 'Conflict creating new image effect',
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Error updating image effect'
   })
   @Patch(':id')
   updateEffectById(@Param('id') effectId: string, @Body() effect: Effect) {
@@ -128,6 +143,9 @@ export class EffectsController {
   })
   @ApiNotFoundResponse({
     description: 'Image effect not found',
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Error deleting image effect'
   })
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)

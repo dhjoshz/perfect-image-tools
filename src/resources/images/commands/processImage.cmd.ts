@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { BusinessLogicCommand } from 'libs/commons/src';
-import { AppLogger } from 'libs/commons/src/logger';
+import { BusinessLogicCommand } from '@app/commons';
+import { AppLogger } from '@logger';
 import { from, Observable, of } from 'rxjs';
-import { Image } from '../../../models/image.model';
+import { Image } from '@models';
 import { ApplyCropCommand } from './applyCrop.cmd';
 import { ApplyFiltersCommand } from './applyFilters.cmd';
 import { ApplyRotationCommand } from './applyRotation.cmd';

@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CommonsUtil } from 'libs/commons/src/utils/commons.util';
+import { CommonsUtil } from '@utils';
 import { from, Observable, switchMap } from 'rxjs';
 import * as sharp from 'sharp';
-import { Clahe } from 'src/models/clahe.model';
-import { Modulate } from 'src/models/modulate.model';
-import { Sharpen } from 'src/models/sharpen.model';
-import { Threshold } from 'src/models/threshold.model';
+import { Modulate, Sharpen, Threshold, Clahe } from '@models';
 
 @Injectable()
 export class FiltersBuilder {

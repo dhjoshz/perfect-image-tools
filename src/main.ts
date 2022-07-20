@@ -7,7 +7,7 @@ import { ValidationPipe } from '@nestjs/common';
 import {
   ImageExceptionsInterceptor,
   RuntimeExceptionsInterceptor,
-} from 'libs/commons-exceptions/src';
+} from '@app/commons-exceptions';
 
 const swaggerConfig = new DocumentBuilder()
   .setTitle('Image Tools')

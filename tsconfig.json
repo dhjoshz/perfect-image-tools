@@ -11,7 +11,39 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@exceptions": [
+        "src/exception"
+      ],
+      "@models": [
+        "src/models"
+      ],
+      "@schemas": [
+        "src/schemas"
+      ],
+      "@pipes": [
+        "src/pipes"
+      ],
+      "@logger": [
+        "libs/commons/src/logger"
+      ],
+      "@utils": [
+        "libs/commons/src/utils"
+      ],
+      "@app/commons": [
+        "libs/commons/src"
+      ],
+      "@app/commons/*": [
+        "libs/commons/src/*"
+      ],
+      "@app/commons-exceptions": [
+        "libs/commons-exceptions/src"
+      ],
+      "@app/commons-exceptions/*": [
+        "libs/commons-exceptions/src/*"
+      ],
+    }
   },
   "exclude": [
     "node_modules",

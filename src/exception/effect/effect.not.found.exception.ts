@@ -1,5 +1,5 @@
 import { HttpStatus } from '@nestjs/common';
-import { AbstractImageException } from 'libs/commons-exceptions/src/core/abstract.image.exception';
+import { AbstractImageException } from '@app/commons-exceptions/core/abstract.image.exception';
 
 export class EffectNotFoundException extends AbstractImageException {
   public static STATUS_CODE = HttpStatus.NOT_FOUND;
