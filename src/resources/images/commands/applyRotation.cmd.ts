@@ -31,6 +31,7 @@ export class ApplyRotationCommand
       switchMap((imageBuffer) => {
         let imageRotated = this.imageProcessor(imageBuffer);
         if (rotationProperties.angle) {
+          imageRotated = imageRotated.png();
           imageRotated = imageRotated.rotate(rotationProperties.angle, {
             background: rotationProperties.transparencyColor
               ? rotationProperties.transparencyColor
