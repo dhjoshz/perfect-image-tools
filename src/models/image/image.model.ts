@@ -3,6 +3,7 @@ import { Type } from 'class-transformer';
 import { IsDefined, IsOptional, ValidateNested } from 'class-validator';
 import { CropProperties } from './cropProperties.model';
 import { Filters } from './filters.model';
+import { ResizeProperties } from './resize.properties';
 import { RotationProperties } from './rotationProperties.model';
 
 export class Image {
@@ -27,6 +28,17 @@ export class Image {
   @Type(() => CropProperties)
   @IsDefined()
   cropProperties?: CropProperties;
+
+  @ApiProperty({
+    type: ResizeProperties,
+    required: false,
+    description: 'Resize properties to be applied over the image',
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ResizeProperties)
+  @IsDefined()
+  resizeProperties?: ResizeProperties;
 
   @ApiProperty({
     type: RotationProperties,
