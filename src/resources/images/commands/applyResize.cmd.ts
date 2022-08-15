@@ -4,13 +4,13 @@ import { AppLogger } from '@logger';
 import { catchError, from, Observable, switchMap, throwError } from 'rxjs';
 import * as sharp from 'sharp';
 import { ImageFiltersBadRequestException } from '@exceptions';
-import { CropProperties } from '@models';
+import { ResizeProperties } from 'src/models/image/resize.properties';
 
 @Injectable()
-export class ApplyCropCommand
-  implements BusinessLogicCommand<Buffer, Observable<Buffer>, CropProperties>
+export class ApplyResizeCommand
+  implements BusinessLogicCommand<Buffer, Observable<Buffer>, ResizeProperties>
 {
-  private readonly logger = AppLogger.getInstance(ApplyCropCommand.name);
+  private readonly logger = AppLogger.getInstance(ApplyResizeCommand.name);
   private imageProcessor = sharp;
 
   private errorHandler = (error) => {
@@ -24,16 +24,16 @@ export class ApplyCropCommand
 
   execute(
     imageBuffer$: Observable<Buffer>,
-    cropProperties: CropProperties,
+    resizeProperties: ResizeProperties,
   ): Observable<Buffer> {
     return imageBuffer$.pipe(
       switchMap((imgBuffer) => {
         return from(
-          this.imageProcessor(imgBuffer).extract(cropProperties).toBuffer(),
+          this.imageProcessor(imgBuffer).resize(resizeProperties),
         );
       }),
       catchError((error) => {
-        this.logger.error(`Error applying crop: ${error}`);
+        this.logger.error(`Error applying resize: ${error}`);
         return this.errorHandler(new ImageFiltersBadRequestException(error));
       }),
     );
