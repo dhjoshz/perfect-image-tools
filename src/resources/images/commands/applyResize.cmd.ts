@@ -29,7 +29,7 @@ export class ApplyResizeCommand
     return imageBuffer$.pipe(
       switchMap((imgBuffer) => {
         return from(
-          this.imageProcessor(imgBuffer).resize(resizeProperties),
+          this.imageProcessor(imgBuffer).resize(resizeProperties).toBuffer(),
         );
       }),
       catchError((error) => {
