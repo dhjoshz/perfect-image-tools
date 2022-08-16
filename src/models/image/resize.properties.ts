@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, Min } from 'class-validator';
+import { IsInt, IsOptional, Min } from 'class-validator';
 
 export class ResizeProperties {
   @ApiProperty({
@@ -7,9 +7,7 @@ export class ResizeProperties {
     required: true,
     description: 'new width for the image',
   })
-  @IsNotEmpty({
-    message: 'Resize width value cannot be empty',
-  })
+  @IsOptional()
   @IsInt({
     message: 'Invalid resize width value, an integer value is expected',
   })
@@ -23,9 +21,7 @@ export class ResizeProperties {
     required: true,
     description: 'new height for the image',
   })
-  @IsNotEmpty({
-    message: 'Resize height value cannot be empty',
-  })
+  @IsOptional()
   @IsInt({
     message: 'Invalid resize height value, an integer value is expected',
   })

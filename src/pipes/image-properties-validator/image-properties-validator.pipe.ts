@@ -14,7 +14,7 @@ export class ImagePropertiesValidatorPipe implements PipeTransform {
   );
 
   async transform(value: any, metadata: ArgumentMetadata) {
-    if (value?.filters || value?.cropProperties || value?.rotationProperties) {
+    if (value?.filters || value?.cropProperties || value?.rotationProperties || value?.resizeProperties) {
       try {
         await validateOrReject(value);
       } catch (errors) {
