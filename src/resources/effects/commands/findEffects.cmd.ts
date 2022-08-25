@@ -12,7 +12,7 @@ import { EffectDocument } from '@schemas';
 
 @Injectable()
 export class FindEffectsCommand
-  implements BusinessLogicCommand<Observable<EffectDocument>>
+  implements BusinessLogicCommand<EffectDocument[]>
 {
   private readonly logger = new Logger(FindEffectsCommand.name);
 

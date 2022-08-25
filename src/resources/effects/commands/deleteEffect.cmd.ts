@@ -3,14 +3,17 @@ import { InjectModel } from '@nestjs/mongoose';
 import { BusinessLogicCommand } from '@app/commons';
 import { Model } from 'mongoose';
 import { catchError, from, Observable, switchMap, tap } from 'rxjs';
-import { EffectInternalServerErrorException } from '@exceptions';
+import {
+  EffectConflictException,
+  EffectInternalServerErrorException,
+} from '@exceptions';
 import { Effect } from '@models';
 import { EffectDocument } from '@schemas';
 import { FindEffectByIdCommand } from './findEffecById.cmd';
 
 @Injectable()
 export class DeleteEffectCommand
-  implements BusinessLogicCommand<Observable<EffectDocument>, string>
+  implements BusinessLogicCommand<EffectDocument, string>
 {
   private readonly logger = new Logger(DeleteEffectCommand.name);
 
@@ -22,9 +25,13 @@ export class DeleteEffectCommand
     private imageModel: Model<EffectDocument>,
   ) {}
 
-  execute(effectId: string): Observable<EffectDocument | any> {
+  execute(effectId: string): Observable<EffectDocument> {
     return this.findEffectByIdCommand.execute(effectId).pipe(
       switchMap((effectfound) => {
+        if (!effectfound.isRemovable) {
+          this.logger.error(`The effect is not removable`);
+          throw new EffectConflictException(`The effect is not removable`);
+        }
         return from(this.imageModel.findByIdAndDelete(effectfound)).pipe(
           catchError((err) => {
             const errorMessage = `Error deleting effect ${effectId}: ${err.message}`;

@@ -12,7 +12,7 @@ import { EffectDocument } from '@schemas';
 
 @Injectable()
 export class FindEffectByIdCommand
-  implements BusinessLogicCommand<string, string, Observable<EffectDocument>>
+  implements BusinessLogicCommand<EffectDocument, string>
 {
   private readonly logger = new Logger(FindEffectByIdCommand.name);
 
@@ -21,7 +21,7 @@ export class FindEffectByIdCommand
     private imageModel: Model<EffectDocument>,
   ) {}
 
-  execute(effectId: string): Observable<EffectDocument | any> {
+  execute(effectId: string): Observable<EffectDocument> {
     return from(this.imageModel.findById(effectId)).pipe(
       catchError((err) => {
         this.logger.error(`Error getting effect by id: ${err.message}`);
