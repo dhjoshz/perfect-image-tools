@@ -146,4 +146,32 @@ export class FiltersBuilder {
       ),
     );
   }
+
+  setTransparencyColor(
+    imageBuffer$: Observable<Buffer>,
+    transparencyColor: string,
+  ): Observable<Buffer> {
+    return imageBuffer$.pipe(
+      switchMap((imageBuffer) =>
+        from(
+          this.imageProcessor(imageBuffer)
+            .flatten({ background: transparencyColor })
+            .toBuffer(),
+        ),
+      ),
+    );
+  }
+
+  setRecomb(
+    imageBuffer$: Observable<Buffer>,
+    recombMatrix: sharp.Matrix3x3,
+  ): Observable<any> {
+    return imageBuffer$.pipe(
+      switchMap((imageBuffer) => {
+        return from(
+          this.imageProcessor(imageBuffer).recomb(recombMatrix).toBuffer(),
+        );
+      }),
+    );
+  }
 }
