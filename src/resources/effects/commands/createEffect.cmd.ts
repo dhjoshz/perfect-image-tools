@@ -9,11 +9,11 @@ import {
 } from '@exceptions';
 import { Effect } from '@models';
 import { EffectDocument } from '@schemas';
+import { MONGOOSE_CONFLICT_ERROR_CODE } from 'config/constants';
 
 @Injectable()
 export class CreateEffectCommand
-  implements
-    BusinessLogicCommand<Effect, EffectDocument, Observable<EffectDocument>>
+  implements BusinessLogicCommand<EffectDocument, Effect>
 {
   private readonly logger = new Logger(CreateEffectCommand.name);
 
@@ -26,7 +26,7 @@ export class CreateEffectCommand
     return from(this.imageModel.create(createEffectModel)).pipe(
       catchError((err) => {
         const errorMessage = `Error creating effect "${createEffectModel.name}"`;
-        if (err?.code === 11000) {
+        if (err?.code === MONGOOSE_CONFLICT_ERROR_CODE) {
           this.logger.error(`${errorMessage}, effect already exists`);
           throw new EffectConflictException(
             `${errorMessage}, effect already exists`,

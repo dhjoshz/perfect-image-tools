@@ -14,6 +14,9 @@ export class Effect {
 
   @Prop({ type: Image })
   imageProperties: Image;
+
+  @Prop({ type: Boolean, default: true })
+  isRemovable: boolean;
 }
 
 export const EffectSchema = SchemaFactory.createForClass(Effect);

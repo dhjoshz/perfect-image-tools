@@ -14,7 +14,7 @@ import { FindEffectByIdCommand } from './findEffecById.cmd';
 
 @Injectable()
 export class UpdateEffectCommand
-  implements BusinessLogicCommand<Observable<EffectDocument>, string, Effect>
+  implements BusinessLogicCommand<EffectDocument, string, Effect>
 {
   private readonly logger = new Logger(UpdateEffectCommand.name);
 
@@ -29,7 +29,7 @@ export class UpdateEffectCommand
   execute(
     effectId: string,
     effectModel: Effect,
-  ): Observable<EffectDocument | any> {
+  ): Observable<EffectDocument> {
     return this.findEffectByIdCommand.execute(effectId).pipe(
       switchMap((effectfound) => {
         return from(
