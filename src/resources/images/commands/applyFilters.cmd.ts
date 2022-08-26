@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { BusinessLogicCommand } from '@app/commons';
 import { AppLogger } from '@logger';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, filter, Observable, throwError } from 'rxjs';
 import { ImageFiltersBadRequestException } from '@exceptions';
 import { Filters } from '@models';
 import { FiltersBuilder } from '../builders/filters.builder';
@@ -56,8 +56,20 @@ export class ApplyFiltersCommand
     if (filters.tint) {
       imageBuffer$ = this.filtersBuilder.setTint(imageBuffer$, filters.tint);
     }
+    if (filters.transparencyColor) {
+      imageBuffer$ = this.filtersBuilder.setTint(
+        imageBuffer$,
+        filters.transparencyColor,
+      );
+    }
     if (filters.grayscale) {
       imageBuffer$ = this.filtersBuilder.setGrayScale(imageBuffer$);
+    }
+    if (filters.recomb) {
+      imageBuffer$ = this.filtersBuilder.setRecomb(
+        imageBuffer$,
+        filters.recomb,
+      );
     }
     if (filters.transparencyColor) {
       imageBuffer$ = this.filtersBuilder.setFlatten(

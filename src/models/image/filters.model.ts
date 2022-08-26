@@ -12,6 +12,7 @@ import {
   ValidateIf,
   ValidateNested,
 } from 'class-validator';
+import { Matrix3x3 } from 'sharp';
 import { Clahe } from './clahe.model';
 import { Modulate } from './modulate.model';
 import { Sharpen } from './sharpen.model';
@@ -86,7 +87,7 @@ export class Filters {
     minLength: 7,
     maxLength: 7,
     required: false,
-    default: '#00FFFFFF',
+    default: '#00FFFF',
   })
   @ValidateIf((o) => o.tint && o.tint.length > 0)
   @IsOptional()
@@ -103,23 +104,26 @@ export class Filters {
 
   @ApiProperty({
     type: String,
-    minLength: 7,
-    maxLength: 7,
+    minLength: 3,
     required: false,
-    default: '#00FFFFFF',
+    default: '#00FFFF',
   })
   @ValidateIf((o) => o.transparencyColor && o.transparencyColor.length > 0)
   @IsOptional()
   @IsString({
     message: 'Invalid transparency color, a string value is expected',
   })
-  @MinLength(7, {
+  @MinLength(3, {
     message: 'The transparency color must be at least 7 characters long',
   })
-  @Matches(/^#(?:[0-9a-fA-F]{3,4}){1,2}$/, {
-    message: 'Invalid transparency color code, a hex color code is expected',
-  })
   transparencyColor?: string;
+
+  @ApiProperty({
+    type: Array,
+    required: false,
+  })
+  @IsOptional()
+  recomb?: Matrix3x3;
 
   @ApiProperty({
     type: Boolean,
