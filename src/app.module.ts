@@ -4,6 +4,7 @@ import { ResourcesModule } from './resources/resources.module';
 import AppServiceConfig from '../config/app.config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { APPLICATION_CONFIG } from 'config/constants';
+import { EventsModule } from './events/events.module';
 
 const logger = new Logger();
 
@@ -36,6 +37,7 @@ const logger = new Logger();
       inject: [ConfigService],
     }),
     ResourcesModule,
+    EventsModule,
   ],
   controllers: [],
   providers: [],

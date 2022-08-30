@@ -27,9 +27,14 @@ export class ProcessImageCommand
   private readonly applyResizeCommand: ApplyResizeCommand;
 
   execute(
-    image: Express.Multer.File,
+    image: any,
+    // image: Express.Multer.File,
     imageProperties: Image,
   ): Observable<Buffer> {
+    console.log('IMG FILE',image);
+    console.log('IMG PROP',imageProperties);
+    
+    
     this.logger.debug(`${image.originalname} processing start`, true);
     let imageBuffer$ = of(image.buffer);
     if (imageProperties.filters) {
