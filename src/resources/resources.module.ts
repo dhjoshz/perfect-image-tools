@@ -4,6 +4,8 @@ import { ImagesModule } from './images/images.module';
 import { EffectsModule } from './effects/effects.module';
 
 @Module({
-  imports: [HealthCheckModule, ImagesModule, EffectsModule],
+  imports: [HealthCheckModule, ImagesModule, 
+    // EffectsModule
+  ],
 })
 export class ResourcesModule {}

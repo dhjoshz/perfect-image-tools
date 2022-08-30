@@ -14,28 +14,17 @@ const logger = new Logger();
       load: [AppServiceConfig],
       envFilePath: ['./config/image-tools.env'],
     }),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => {
-        const { mongoUri } = configService.get(`${APPLICATION_CONFIG}`);
-        logger.debug(`connecting with Mongo URI: ${mongoUri}`);
-        return {
-          uri: mongoUri,
-        };
-      },
-      inject: [ConfigService],
-    }),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => {
-        const { mongoUri } = configService.get(`${APPLICATION_CONFIG}`);
-        logger.debug(`connecting with Mongo URI: ${mongoUri}`);
-        return {
-          uri: mongoUri,
-        };
-      },
-      inject: [ConfigService],
-    }),
+    // MongooseModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   useFactory: async (configService: ConfigService) => {
+    //     const { mongoUri } = configService.get(`${APPLICATION_CONFIG}`);
+    //     logger.debug(`connecting with Mongo URI: ${mongoUri}`);
+    //     return {
+    //       uri: mongoUri,
+    //     };
+    //   },
+    //   inject: [ConfigService],
+    // }),
     ResourcesModule,
     EventsModule,
   ],
